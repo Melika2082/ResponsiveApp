@@ -12,142 +12,126 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: Colors.grey,
       body: Center(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                double maxWidth =
-                    constraints.maxWidth < 400 ? constraints.maxWidth : 400;
-                double maxHeight =
-                    constraints.maxHeight < 400 ? constraints.maxHeight : 400;
-                return ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: maxWidth),
-                  child: Card(
-                    elevation: 8.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+          padding: const EdgeInsets.all(16.0),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Card(
+              elevation: 8.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    _buildWelcomeText(),
+                    const SizedBox(height: 24),
+                    _buildTextField(
+                      label: 'Email',
+                      controller: _emailController,
+                      hintText: 'email@domain.com',
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Welcome to ',
-                                  style: TextStyle(
-                                    fontSize: maxWidth / 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'ERP Admin',
-                                  style: TextStyle(
-                                    fontSize: maxWidth / 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: maxHeight / 15),
-                          Text(
-                            "Email",
-                            style: TextStyle(
-                              fontSize: maxWidth / 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(height: maxHeight * 0.01),
-                          SizedBox(
-                            height: maxHeight / 5,
-                            child: TextField(
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                hintText: 'email@domain.com',
-                                hintStyle: TextStyle(
-                                  fontSize: maxWidth / 20,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "Password",
-                            style: TextStyle(
-                              fontSize: maxWidth / 20,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(height: maxHeight * 0.01),
-                          TextField(
-                            obscureText: true,
-                            controller: _passwordController,
-                            decoration: InputDecoration(
-                              hintText: '*********',
-                              hintStyle: TextStyle(fontSize: maxWidth / 20),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: maxHeight * 0.01),
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Forgot password?',
-                                style: TextStyle(
-                                  fontSize: maxWidth / 25,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: maxHeight * 0.05),
-                          SizedBox(
-                            width: double.infinity,
-                            height: maxHeight / 7,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 50,
-                                  vertical: 15,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: Text(
-                                'SUBMIT',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: maxWidth / 20,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                    const SizedBox(height: 16),
+                    _buildTextField(
+                      label: 'Password',
+                      controller: _passwordController,
+                      hintText: '*********',
+                      obscureText: true,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Forgot password?',
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          'SUBMIT',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildWelcomeText() {
+    return RichText(
+      text: const TextSpan(
+        children: [
+          TextSpan(
+            text: 'Welcome to ',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          TextSpan(
+            text: 'ERP Admin',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String label,
+    required TextEditingController controller,
+    required String hintText,
+    bool obscureText = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hintText,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          obscureText: obscureText,
+        ),
+      ],
     );
   }
 }
