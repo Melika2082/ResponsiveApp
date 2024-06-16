@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    _buildWelcomeText(),
+                    _buildWelcomeText(context),
                     const SizedBox(height: 24),
                     _buildTextField(
                       label: 'Email',
@@ -81,15 +81,18 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildWelcomeText() {
+  Widget _buildWelcomeText(BuildContext context) {
+    final textScaleFactor = MediaQuery.of(context).textScaler;
+
     return RichText(
-      text: const TextSpan(
+      text: TextSpan(
         children: [
           TextSpan(
             text: 'Welcome to ',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
+              fontSize: textScaleFactor.scale(20),
             ),
           ),
           TextSpan(
@@ -97,6 +100,7 @@ class LoginScreen extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
+              fontSize: textScaleFactor.scale(20),
             ),
           ),
         ],
